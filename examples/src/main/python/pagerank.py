@@ -79,7 +79,7 @@ if __name__ == "__main__":
             lambda url_urls_rank: computeContribs(url_urls_rank[1][0], url_urls_rank[1][1]))
 
         # Re-calculates URL ranks based on neighbor contributions.
-        ranks = contribs.reduceByKey(add).mapValues(lambda rank: rank * 0.85 + 0.15)
+        ranks = contribs.reduceByKey(lambda x,y: x+y).mapValues(lambda rank: rank * 0.85 + 0.15)
 
     # Collects all URL ranks and dump them to console.
     for (link, rank) in ranks.collect():
